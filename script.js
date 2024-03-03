@@ -14,7 +14,7 @@ const loadData = async () => {
         <div id="dynamic-all-post" class="flex bg-[#F3F3F5] p-4 lg:p-6 rounded-xl mb-5 lg:mb-0">
             <div>
               <!-- avatar --> 
-              <div class="${item.isActive}avatar online mr-2">
+              <div class="avatar online mr-2">
                 <div class="avatar">
                   <div class="w-16 rounded-xl">
                     <img
@@ -31,27 +31,25 @@ const loadData = async () => {
               </div>
               <div class="border-b-2 border-dotted">
                 <h1 class="font-mulish text-xl font-bold text-[#12132D]">
-                  10 Kids Unaware of Their Halloween Costume
+                  ${item.title}
                 </h1>
                 <p class="text-[#12132D99] mb-2">
-                  These examples are programmatically compiled from various
-                  online sources <br />
-                  to usage of the word 'description.
+                  ${item.description}
                 </p>
               </div>
               <div class="flex justify-between mt-2">
                 <div class="flex gap-5 *:items-center items-center">
                   <div class="flex gap-3">
                     <img src="./images/text.svg" alt="" />
-                    <p>50520</p>
+                    <p>${item.comment_count}</p>
                   </div>
                   <div class="flex gap-3">
                     <img src="./images/chokh.svg" alt="" />
-                    <p>50520</p>
+                    <p>${item.view_count}</p>
                   </div>
                   <div class="flex gap-3">
                     <img src="./images/clock.svg" alt="" />
-                    <p>50520</p>
+                    <p>${item.posted_time}</p>
                   </div>
                 </div>
                 <div>
@@ -67,4 +65,7 @@ const loadData = async () => {
     allPostContainer.appendChild(div)
   });
 };
+
+
+
 loadData();
