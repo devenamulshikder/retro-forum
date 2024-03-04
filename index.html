@@ -104,10 +104,13 @@
               </p>
               <div>
                 <input
+                  id="search-input"
                   class="py-2 px-2 rounded-l-md font-mulish lg:text-xl"
                   type="text"
                   placeholder="Search here anything"
                 /><button
+                  onclick="handleSearch()"
+                  id="search-btn"
                   class="bg-[#797DFC] py-2 rounded-r-md px-2 font-mulish lg:text-xl font-bold text-[#fff]"
                 >
                   Search
@@ -160,11 +163,14 @@
             underpinned by extreme threats national security.
           </p>
         </div>
+
+        <!-- spinner or loader -->
+        <div id="loading-spinner" class="text-center lg:mt-10 mt-5 hidden">
+          <span class="loading loading-spinner loading-lg"></span>
+        </div>
         <!-- dynamic posts -->
         <div class="flex flex-col lg:flex-row justify-evenly mb-5">
-          <div id="all-post-container" class="lg:space-y-5 ">
-
-          </div>
+          <div id="all-post-container" class="lg:space-y-5"></div>
           <!-- right side -->
           <div class="bg-[#12132D0D] rounded-xl p-5 lg:p-8 space-y-4">
             <div class="flex justify-between">
@@ -212,7 +218,6 @@
 
       <!-- Latest Posts section start here -->
       <section class="lg:my-[100px]">
-
         <div class="text-center space-y-7">
           <h1 class="text-[#12132D] text-4xl font-mulish font-extrabold">
             Latest Posts
@@ -225,9 +230,10 @@
           </p>
         </div>
 
-        <div id="latest-post-container" class="flex flex-col lg:flex-row justify-between">
-
-        </div>
+        <div
+          id="latest-post-container"
+          class="flex flex-col lg:flex-row justify-between"
+        ></div>
       </section>
       <!-- Latest Posts section end here -->
     </main>
@@ -280,9 +286,7 @@
           ></a>
         </div>
       </nav>
-    <div class="w-full border-gray-200 border-2 ">
-
-    </div>
+      <div class="w-full border-gray-200 border-2"></div>
       <aside>
         <p class="text-[#12132D80] font-mulish">2017 - All Right Reserved</p>
       </aside>

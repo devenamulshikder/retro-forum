@@ -4,15 +4,18 @@ const loadData = async () => {
   );
   const data = await res.json();
   const allPost = data.posts;
-
-  const allPostContainer = document.getElementById("all-post-container");
+  dataAll(allPost);
+};
+const allPostContainer = document.getElementById("all-post-container");
+const dataAll = (allPost) => {
+  console.log(allPost);
   allPost.forEach((item) => {
     const div = document.createElement("div");
     div.innerHTML = `
         <div id="dynamic-all-post" class="flex bg-[#F3F3F5] p-4 lg:p-6 rounded-xl mb-5 lg:mb-0">
             <div>
               <!-- avatar --> 
-              <div class="avatar ${item.isActive ? "online" : "offline"} mr-2">
+              <div class="avatar ${item.isActive ? "online" : "offline"} mr-2 ">
                 <div class="avatar">
                   <div class="w-16 rounded-xl">
                     <img
@@ -58,12 +61,11 @@ const loadData = async () => {
               </div>
             </div>
           </div>
-    
     `;
     allPostContainer.appendChild(div);
+    toggleLoadingSpinner(false);
   });
 };
-
 // latest post
 const latestPost = async () => {
   const res = await fetch(
@@ -129,12 +131,51 @@ const latestPost = async () => {
   });
 };
 
-const handleClick = (id) => {
-// console.log(id);
 
+
+
+
+
+const handleClick = (id) => {
+  // console.log(id);
 };
 
 
+
+
+
+
+
+const categoryName = async (categoryName) => {
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
+  );
+  const categoryData = await res.json();
+  console.log(categoryData);
+  const category = categoryData.posts;
+  dataAll(category);
+  toggleLoadingSpinner(false);
+};
+const handleSearch = () => {
+  toggleLoadingSpinner(true);
+  allPostContainer.innerHTML = "";
+  const value = document.getElementById("search-input");
+  const valueText = value.value;
+  console.log(valueText);
+  categoryName(valueText);
+  if (valueText) {
+  } else {
+    alert("Please enter a valid Category Name");
+  }
+};
+const toggleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.getElementById("loading-spinner");
+  if (!!isLoading) {
+    loadingSpinner.classList.remove("hidden");
+  } else {
+    loadingSpinner.classList.add("hidden");
+  }
+};
 
 latestPost();
 loadData();
