@@ -8,7 +8,6 @@ const loadData = async () => {
 };
 const allPostContainer = document.getElementById("all-post-container");
 const dataAll = (allPost) => {
-  console.log(allPost);
   allPost.forEach((item) => {
     const div = document.createElement("div");
     div.innerHTML = `
@@ -131,27 +130,43 @@ const latestPost = async () => {
   });
 };
 
-
-
-
-
+const markCount = document.getElementById("mark-count");
+let count = 1;
 
 const handleClick = (id) => {
-  // console.log(id);
+  markCount.innerText = count;
+  count++;
+  handleTitle(id);
 };
 
-
-
-
-
-
+const handleTitle = async (id) => {
+  const res = await fetch(
+    "https://openapi.programming-hero.com/api/retro-forum/posts"
+  );
+  const data = await res.json();
+  const allPost = data.posts;
+  const markDivContainer = document.getElementById("mark-title");
+  allPost.forEach((postAll) => {
+    if (id === `${postAll.id}`) {
+      const div = document.createElement("div");
+      div.className = `flex justify-between gap-2 bg-white p-4 rounded-xl`;
+      div.innerHTML = `
+         <h1>${postAll.title}</h1>
+              <div class="flex items-center gap-2 px-3">
+                <img src="./images/chokh.svg" alt="" />
+                <p>${postAll?.view_count}</p>
+              </div>
+        `;
+      markDivContainer.appendChild(div);
+    }
+  });
+};
 
 const categoryName = async (categoryName) => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/retro-forum/posts?category=${categoryName}`
   );
   const categoryData = await res.json();
-  console.log(categoryData);
   const category = categoryData.posts;
   dataAll(category);
   toggleLoadingSpinner(false);
@@ -161,7 +176,6 @@ const handleSearch = () => {
   allPostContainer.innerHTML = "";
   const value = document.getElementById("search-input");
   const valueText = value.value;
-  console.log(valueText);
   categoryName(valueText);
   if (valueText) {
   } else {
