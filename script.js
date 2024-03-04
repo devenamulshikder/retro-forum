@@ -4,17 +4,15 @@ const loadData = async () => {
   );
   const data = await res.json();
   const allPost = data.posts;
-  //   console.log(post);
 
   const allPostContainer = document.getElementById("all-post-container");
   allPost.forEach((item) => {
-    // console.log(item);
     const div = document.createElement("div");
     div.innerHTML = `
         <div id="dynamic-all-post" class="flex bg-[#F3F3F5] p-4 lg:p-6 rounded-xl mb-5 lg:mb-0">
             <div>
               <!-- avatar --> 
-              <div class="avatar online mr-2">
+              <div class="avatar ${item.isActive ? "online" : "offline"} mr-2">
                 <div class="avatar">
                   <div class="w-16 rounded-xl">
                     <img
@@ -29,7 +27,7 @@ const loadData = async () => {
                 <p>#${item?.category}</p>
                 <p>Author : ${item?.author?.name}</p>
               </div>
-              <div class="border-b-2 border-dotted">
+              <div class="border-b-2 border-dashed">
                 <h1 class="font-mulish text-xl font-bold text-[#12132D]">
                   ${item?.title}
                 </h1>
@@ -53,7 +51,7 @@ const loadData = async () => {
                   </div>
                 </div>
                 <div>
-                  <button>
+                  <button onclick="handleClick('${item.id}')">
                     <img src="./images/email 1.png" alt="" />
                   </button>
                 </div>
@@ -72,10 +70,8 @@ const latestPost = async () => {
     "https://openapi.programming-hero.com/api/retro-forum/latest-posts"
   );
   const data = await res.json();
-  //   console.log(data);
   const latestPostContainer = document.getElementById("latest-post-container");
   data.forEach((latestPostAll) => {
-    // console.log(latestPostAll);
     const div = document.createElement("div");
     div.innerHTML = `
 
@@ -90,7 +86,11 @@ const latestPost = async () => {
             <div class="card-body">
               <div class="flex gap-3">
                 <img src="./images/date.svg" alt="" />
-                <p class="font-mulish text-[#12132D99]">${latestPostAll?.author?.posted_date}</p>
+                <p class="font-mulish text-[#12132D99]">${
+                  latestPostAll?.author?.posted_date
+                    ? latestPostAll?.author?.posted_date
+                    : "No publish date"
+                }</p>
               </div>
               <p
                 class="text-[#12132D] text-lg font-mulish font-bold mb-1 lg:mb-3"
@@ -115,18 +115,26 @@ const latestPost = async () => {
                   <h3 class="text-[#12132D] font-mulish font-bold">
                     ${latestPostAll?.author?.name}
                   </h3>
-                <p>${latestPostAll?.author?.designation}</p>
+                <p>${
+                  latestPostAll?.author?.designation
+                    ? latestPostAll?.author?.designation
+                    : "Unknown"
+                }</p>
                 </div>
               </div>
             </div>
           </div>
-     
-        
         `;
     latestPostContainer.appendChild(div);
   });
 };
 
-latestPost();
+const handleClick = (id) => {
+// console.log(id);
 
+};
+
+
+
+latestPost();
 loadData();
